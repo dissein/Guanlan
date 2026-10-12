@@ -1,0 +1,14 @@
+node_modules/
+target/
+dist/
+.guanlan/
+*.log
+release/
+src-tauri/gen/
+.DS_Store
+.env
+.env.*
+
+
+linear.app/
+artifacts/

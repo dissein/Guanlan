@@ -1,0 +1,1 @@
+{"identifier":"default","description":"Main window: native workspace folder picker","windows":["main"],"permissions":["core:default","dialog:allow-open"]}

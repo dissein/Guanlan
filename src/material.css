@@ -1,0 +1,130 @@
+:root {
+  --md-sys-color-primary: #006b60;
+  --md-sys-color-on-primary: #fff;
+  --md-sys-color-primary-container: #b5eee0;
+  --md-sys-color-on-primary-container: #00382f;
+  --md-sys-color-secondary-container: #dce7e3;
+  --md-sys-color-surface: #f4f8f5;
+  --md-sys-color-surface-container: #e9efeb;
+  --md-sys-color-on-surface: #182c27;
+  --md-sys-color-on-surface-variant: #51665e;
+  --md-sys-color-outline-variant: #c3d3ca;
+  --accent: var(--md-sys-color-primary);
+  --line: var(--md-sys-color-outline-variant);
+  --muted: var(--md-sys-color-on-surface-variant);
+  --glass: rgba(251,255,252,.72);
+  --glass-blur: blur(28px) saturate(135%);
+  color: var(--md-sys-color-on-surface);
+  background: var(--md-sys-color-surface);
+}
+body {
+  background: radial-gradient(ellipse at 85% 6%,#dcdcf18c,transparent 45%),
+    radial-gradient(ellipse at 30% 85%,#c1eade80,transparent 55%),#edf3ef;
+}
+button {border-radius:999px;transition:background .18s,box-shadow .18s,transform .18s;color:#355b50}
+button:hover {background:#006b6012}
+button:active:not(:disabled){transform:scale(.97)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible {outline:3px solid #006b6075;outline-offset:3px}
+#app {gap:12px;padding:12px;isolation:isolate}
+.sidebar {width:244px;background:transparent;border:0;padding:18px 10px 16px}
+.brand {margin:0 8px 26px;gap:10px}
+.brand strong {font-size:21px;letter-spacing:1px;color:#163e33}
+.brand span {color:#547064}
+.brand .version {background:#d7e7de;border-radius:999px;padding:3px 7px;font-size:10px}
+.brand-mark {width:48px;height:48px}
+.new-session {min-height:56px;background:var(--md-sys-color-primary-container);color:#064b3c;border:0;border-radius:18px;padding:14px 18px;font-size:14px;box-shadow:0 4px 12px #1646350a}
+.new-session:hover {background:#a2e4d3;box-shadow:0 5px 16px #16463512}
+.new-session svg {width:20px;height:20px}
+.new-session span {font-size:10px;color:#3c6a5c}
+.section-label {color:#60776c;font-size:12px;margin:26px 14px 10px}
+.session-item {min-height:44px;border-radius:999px;padding:11px 16px;color:#425c51;margin:3px 0}
+.session-item svg {color:#5f7c6d}
+.session-item.selected {background:#cfe8dc;color:#064b3c;font-weight:550}
+.sidebar-empty {color:#688073;padding:12px 16px}
+.workspace-section {border-color:#c9d8ce}
+#workspace {color:#335747;padding:10px 14px;border-radius:16px}
+#tree {padding:5px 14px;color:#5c7468;font-size:12px}
+#tree svg {color:#739385}
+.sidebar-footer {border-color:#c9d8ce}
+.sidebar-footer button {min-height:44px;padding:10px 15px;color:#315d4c;background:#ffffff58}
+.sidebar-footer>span {color:#607b6c}
+main {border-radius:28px;background:var(--glass);backdrop-filter:var(--glass-blur);border:1px solid #ffffffd9;box-shadow:inset 0 1px 0 #fff,0 8px 32px #34594b08;overflow:hidden;position:relative}
+.topbar {height:72px;background:transparent;border-bottom:1px solid #bbd0c22e;padding:0 28px}
+.topbar strong {color:#2a483b;font-size:15px;font-weight:600}
+.top-actions {gap:8px}
+.top-actions select {border:0;background:#dcebe37a;color:#355d4b;border-radius:999px;padding:9px 14px;font-size:12px}
+.top-actions button {color:#53715f;min-height:38px}
+.top-actions .icon-button {width:40px;justify-content:center;background:#e1ece575;border-radius:50%}
+.separator {background:#bed0c2}
+main.is-empty {grid-template-rows:72px minmax(190px,1fr) auto auto minmax(40px,1fr)}
+.is-empty .conversation {padding:28px 24px 30px}
+.welcome-symbol {width:88px;height:88px;margin-bottom:20px}
+.welcome h1 {font-size:36px;font-weight:550;letter-spacing:-1px;color:#244e3f;line-height:1.35;margin-bottom:14px}
+.welcome p {font-size:14px;color:#63796c}
+.composer-area {max-width:840px;padding:12px 32px 28px;align-self:center}
+.composer {border:1px solid #ffffffed;border-radius:28px;background:linear-gradient(145deg,#ffffffd9,#f6fffbd1);backdrop-filter:var(--glass-blur);box-shadow:inset 0 2px 1px #fff,0 12px 40px #32694e10,0 1px 4px #32513f0a}
+.composer:focus-within {border-color:#83bca4;box-shadow:inset 0 2px 1px #fff,0 12px 40px #32694e15,0 0 0 3px #006b600b}
+.composer textarea {font-size:15px;min-height:118px;padding:24px 24px 10px;color:#243f31;background:transparent;border-radius:28px;line-height:1.8}
+.composer textarea::placeholder {color:#728c7c}
+.composer-bottom {padding:8px 16px 16px}
+#model-label {background:#e5f0e8;border-radius:999px;color:#466956;padding:8px 12px;font-size:12px}
+#run-status {font-size:11px;color:#738675}
+.send {width:44px;height:44px;border-radius:50%;background:#006b60;color:#fff;box-shadow:0 3px 8px #006b6025}
+.send:hover,.primary:hover {background:#00564c}
+.send svg {width:20px;height:20px}
+.quick-actions {gap:10px;padding:0 24px;max-width:800px}
+.quick-actions button {border:1px solid #fff;background:#e4eee6b0;border-radius:999px;font-size:13px;padding:11px 18px;color:#466850;backdrop-filter:blur(10px)}
+.quick-actions button:hover {background:#cee7d8;border-color:#b5d5c2;color:#204f35}
+.quick-actions svg {color:#537f66;width:17px;height:17px}
+.conversation {padding:26px max(28px,calc((100% - 760px)/2))}
+.message-label {color:#2e6b50;font-size:13px}
+.user-content {background:#e3eee6;border:0;border-radius:24px 24px 8px 24px;color:#274932;padding:16px 20px;font-size:14px}
+.markdown {color:#233c2c;font-size:14px;line-height:1.9}
+.markdown a {color:#006b60}
+.markdown pre,.tool-result pre,.activity-card pre,.change-card pre {background:#e9f0eb;color:#375d49;border-color:#d0ded5;border-radius:16px}
+.reasoning {background:#f0f5f0;color:#577060;border-color:#d4e1d6;border-radius:18px}
+.inline-tools span {background:#e6eee7;color:#53715d;border-radius:999px}
+.inspector {width:300px;border:1px solid #ffffffc9;border-radius:28px;background:var(--glass);backdrop-filter:var(--glass-blur);box-shadow:inset 0 1px 0 #fff;overflow:hidden}
+.inspector-head {height:72px;border-color:#c7d8cc60;padding:0 22px}
+.inspector-head strong {color:#35543d;font-size:14px}
+.inspector-head span {background:#d8ecdd;color:#3e724a;border-radius:999px;padding:5px 10px}
+.tabs {border:0;background:#e2ede5;border-radius:999px;margin:14px 16px;padding:4px;gap:4px}
+.tabs button {flex:1;border:0!important;border-radius:999px;justify-content:center;padding:8px;font-size:12px;color:#64806a}
+.tabs button.active {background:#fbfffb;color:#245939;box-shadow:0 2px 5px #40614c0e}
+.panel-empty {color:#6e8575}.panel-empty strong {color:#55745f}
+.panel-empty>svg {color:#84a78e}
+.activity-card,.change-card {background:#f8fff8c4;border:1px solid #fff;border-radius:18px;padding:15px;color:#375d43}
+.primary {background:#006b60;border-color:#006b60;color:#fff;border-radius:999px}
+#request {background:#e2f1e7;border-color:#b7d8c3;border-radius:20px;color:#345d43}
+.request-title {color:#006b60}
+dialog {width:600px;padding:30px;border-radius:28px;background:var(--glass);backdrop-filter:blur(40px) saturate(145%);border:1px solid #fff;box-shadow:inset 0 1px 0 #fff,0 30px 100px #153b2d2b;color:#243d2c;max-height:90vh}
+dialog::backdrop {background:#17382d35;backdrop-filter:blur(9px)}
+.dialog-head h2 {font-size:25px;font-weight:550;color:#284f37}
+.dialog-head .icon-button {border-radius:50%;width:36px;height:36px;justify-content:center;background:#dceade}
+.dialog-intro {color:#657d6b;margin:12px 0 24px;font-size:13px}
+form label {color:#45634e;font-size:13px;margin:20px 0}
+form input,form select,.input-row input {border:1px solid #c2d4c6;border-radius:14px;background:#fbfffbad;color:#2d5038;min-height:48px;padding:12px 14px;font-size:13px}
+form input:focus,form select:focus {border-color:#006b60;background:#ffffffd9}
+form small {color:#667e6c;font-size:11px}
+.input-row button {border-radius:999px;background:#dcebe0;color:#42694d;border:0;padding:10px 16px}
+.model-picker .model-toggle {border-radius:0 14px 14px 0;background:transparent;min-width:38px;padding:0 10px}
+.model-options {background:#f6fdf7;border:1px solid #c4d9ca;border-radius:16px;box-shadow:0 8px 24px #224b3320;padding:4px}
+.model-options button {border-radius:10px;color:#30513b}
+.model-options button:hover,.model-options button[aria-selected=true] {background:#d7eddd}
+.check input {min-height:16px;padding:0;accent-color:#006b60}
+.dialog-footer {border-color:#cbdcce;padding-top:20px}
+.dialog-footer button {padding:11px 22px;min-height:44px;font-size:13px}
+.appearance-field {display:flex;align-items:center;justify-content:space-between;gap:16px;background:#ddece17a;border-radius:20px;padding:14px 16px;margin-bottom:24px}
+.appearance-field span {font-size:13px;color:#466950}
+.appearance-field select {width:auto;min-height:40px;border:0;background:#ffffffac;padding:8px 12px;border-radius:999px;color:#31533c}
+#toast {border-radius:18px;background:#274b36;color:#fff}
+:root[data-material=solid] {--glass:#f7faf5;--glass-blur:none}
+:root[data-material=solid] body {background:#eaf1e9}
+:root[data-material=solid] .composer {background:#fff;backdrop-filter:none;border-color:#dce6da}
+:root[data-material=solid] dialog {background:#f4f8ef;backdrop-filter:none}
+@supports not (backdrop-filter:blur(1px)) {main,.inspector,dialog,.composer {background:#f7faf5}}
+@media(max-width:1150px) {.sidebar{width:214px}.inspector{width:270px}.brand .version{display:none}.topbar{padding:0 20px}.welcome h1{font-size:32px}}
+@media(max-width:960px) {#app{padding:8px;gap:8px}.sidebar{width:200px;padding:18px 6px}main{border-radius:24px}.topbar{height:64px;padding:0 18px}main.is-empty{grid-template-rows:64px minmax(180px,1fr) auto auto minmax(24px,1fr)}.top-actions{gap:4px}.top-actions select{padding:8px 10px}.top-actions .icon-button{width:36px}.inspector:not(.collapsed){top:8px;bottom:8px;right:8px;background:var(--glass);z-index:2;width:280px;border-radius:24px;box-shadow:-8px 0 30px #24493215}.quick-actions{gap:8px}.quick-actions button{padding:10px 13px;font-size:12px}.welcome h1{font-size:30px}.composer-area{padding:10px 22px 20px}}
+@media(max-height:720px) {.welcome-symbol{width:58px;height:58px;margin-bottom:10px}.welcome h1{font-size:28px;margin-bottom:8px}.is-empty .conversation{padding:18px 24px}.composer textarea{min-height:94px;padding-top:18px}main.is-empty{grid-template-rows:64px minmax(160px,1fr) auto auto minmax(20px,.5fr)}.topbar{height:64px}.composer-bottom{padding-bottom:12px}.send{width:40px;height:40px}}
+@media(prefers-reduced-motion:reduce) {*{transition:none!important}}
+:root[data-material=solid] dialog::backdrop {backdrop-filter:none}

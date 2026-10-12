@@ -1,0 +1,82 @@
+name: Windows build and release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: '. -> target'
+      - name: Install dependencies
+        run: npm ci
+      - name: Check release version
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $tauriVersion = (Get-Content src-tauri/tauri.conf.json -Raw | ConvertFrom-Json).version
+          $cargoVersion = (Select-String -Path Cargo.toml -Pattern '^version = "(.+)"').Matches.Groups[1].Value
+          if ($version -ne $tauriVersion -or $version -ne $cargoVersion) { throw 'Project versions disagree' }
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$version") { throw 'Tag does not match project version' }
+          "APP_VERSION=$version" >> $env:GITHUB_ENV
+      - name: Frontend tests
+        run: npm test
+      - name: Rust tests
+        run: cargo test --locked -p guanlan-core
+      - name: Build Windows installer
+        run: npm run package -- --ci
+      - name: Collect release files
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path artifacts -Force | Out-Null
+          Copy-Item -LiteralPath target/release/guanlan-desktop.exe -Destination "artifacts/Guanlan_$env:APP_VERSION`_x64.exe"
+          $installers = @(Get-ChildItem target/release/bundle/nsis -Filter '*-setup.exe')
+          if ($installers.Count -ne 1) { throw 'Expected one NSIS installer' }
+          Copy-Item -LiteralPath $installers[0].FullName -Destination "artifacts/Guanlan_$env:APP_VERSION`_x64-setup.exe"
+          Get-ChildItem artifacts -Filter '*.exe' | Sort-Object Name | ForEach-Object {
+            "$((Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLower())  $($_.Name)"
+          } | Set-Content artifacts/SHA256SUMS.txt -Encoding utf8
+      - uses: actions/upload-artifact@v7
+        with:
+          name: Guanlan-Windows-x64
+          path: artifacts/*
+          if-no-files-found: error
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $assets = @(Get-ChildItem artifacts -File | ForEach-Object { $_.FullName })
+          gh release view $env:GITHUB_REF_NAME *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $env:GITHUB_REF_NAME @assets --clobber
+          } else {
+            $notes = "docs/releases/$env:GITHUB_REF_NAME.md"
+            if (Test-Path -LiteralPath $notes) {
+              gh release create $env:GITHUB_REF_NAME @assets --verify-tag --title "观澜 $env:GITHUB_REF_NAME" --notes-file $notes
+            } else {
+              gh release create $env:GITHUB_REF_NAME @assets --verify-tag --title "观澜 $env:GITHUB_REF_NAME" --generate-notes
+            }
+          }
+          if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }

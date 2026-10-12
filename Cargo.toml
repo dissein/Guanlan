@@ -1,0 +1,8 @@
+[workspace]
+members = ["crates/guanlan-core", "src-tauri"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.7"
+edition = "2021"
+
